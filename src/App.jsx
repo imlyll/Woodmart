@@ -7,7 +7,7 @@ import { Footer } from "./components/Footer/Footer";
 
 export const App = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/Woodmart">
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
