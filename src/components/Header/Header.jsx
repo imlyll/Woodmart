@@ -99,7 +99,67 @@ export const Header = () => {
     };
 
     return (
-        <div className="position-relative overflow-hidden" style={{ width: "100%", height: "600px", cursor: isDragging.current ? "grabbing" : "grab", userSelect: "none" }} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={endDrag} onPointerLeave={endDrag}>
+        <div className="position-relative overflow-hidden header-wrap" style={{ width: "100%", cursor: isDragging.current ? "grabbing" : "grab", userSelect: "none" }} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={endDrag} onPointerLeave={endDrag}>
+            <style>{`
+                .header-wrap {
+                    height: 600px;
+                }
+                @media (max-width: 768px) {
+                    .header-wrap {
+                        height: 420px;
+                    }
+                }
+                @media (max-width: 576px) {
+                    .header-wrap {
+                        height: 360px;
+                    }
+                }
+                .header-title {
+                    font-size: 4rem;
+                }
+                @media (max-width: 768px) {
+                    .header-title {
+                        font-size: 2.2rem;
+                    }
+                }
+                @media (max-width: 576px) {
+                    .header-title {
+                        font-size: 1.6rem;
+                    }
+                }
+                .header-text {
+                    font-size: 15px;
+                }
+                @media (max-width: 576px) {
+                    .header-text {
+                        font-size: 13px;
+                    }
+                }
+                .header-arrow-prev,
+                .header-arrow-next {
+                    width: 45px;
+                    height: 45px;
+                }
+                .header-arrow-prev {
+                    left: 20px;
+                }
+                .header-arrow-next {
+                    right: 20px;
+                }
+                @media (max-width: 576px) {
+                    .header-arrow-prev,
+                    .header-arrow-next {
+                        width: 32px;
+                        height: 32px;
+                    }
+                    .header-arrow-prev {
+                        left: 8px;
+                    }
+                    .header-arrow-next {
+                        right: 8px;
+                    }
+                }
+            `}</style>
             <div
                 className="d-flex h-100"
                 style={{ width: `${extendedSlides.length * 100}%`, transform: `translateX(calc(-${current * (100 / extendedSlides.length)}% + ${dragOffset}px))`, transition: withTransition ? `transform ${TRANSITION_DURATION}ms ease-in-out` : "none" }}>
@@ -113,16 +173,16 @@ export const Header = () => {
                             <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center">
                                 <div className="container">
                                     <div style={{ maxWidth: "450px" }}>
-                                        <h1 className="fw-bold mb-3" style={{ lineHeight: "1.07", fontSize: "4rem", color: headerColor, opacity: isActive ? 1 : 0, transform: isActive ? "translateY(0)" : "translateY(25px)", transition: "opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s" }}>
+                                        <h1 className="fw-bold mb-3 header-title" style={{ lineHeight: "1.07", color: headerColor, opacity: isActive ? 1 : 0, transform: isActive ? "translateY(0)" : "translateY(25px)", transition: "opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s" }}>
                                             {slide.title}
                                         </h1>
-                                        <p className="mb-4" style={{ color: greyColor, fontFamily: "Arial", fontSize: "15px", lineHeight: "1.6", opacity: isActive ? 1 : 0, transform: isActive ? "translateY(0)" : "translateY(25px)", transition: "opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s" }}>
+                                        <p className="mb-4 header-text" style={{ color: greyColor, fontFamily: "Arial", lineHeight: "1.6", opacity: isActive ? 1 : 0, transform: isActive ? "translateY(0)" : "translateY(25px)", transition: "opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s" }}>
                                             {slide.text}
                                         </p>
                                         <div className="d-flex gap-3" style={{
                                             opacity: isActive ? 1 : 0, transform: isActive ? "translateY(0)" : "translateY(25px)", transition: "opacity 0.6s ease 0.45s, transform 0.6s ease 0.45s"
                                         }}>
-                                            <button className="btn btn-primary fw-semibold text-uppercase" style={{ padding: "10px 24px", fontSize: "0.9rem" }}>
+                                            <button className="btn fw-semibold text-uppercase" style={{ padding: "10px 24px", fontSize: "0.9rem", backgroundColor: "#2e6bc6", color: "#fff" }}>
                                                 To Shop
                                             </button>
                                             <button className="btn btn-light border bg-transparent fw-bold text-uppercase" style={{ padding: "10px 24px", fontSize: "0.9rem", color: threeColor }}>
@@ -137,30 +197,24 @@ export const Header = () => {
                 })}
             </div>
 
-            <button onClick={goToPrev} onPointerDown={(e) => e.stopPropagation()} className="position-absolute d-flex align-items-center justify-content-center" style={{
+            <button onClick={goToPrev} onPointerDown={(e) => e.stopPropagation()} className="position-absolute d-flex align-items-center justify-content-center header-arrow-prev" style={{
                 top: "50%",
-                left: "20px",
                 transform: "translateY(-50%)",
-                width: "45px",
-                height: "45px",
                 borderRadius: "50%",
                 cursor: "pointer",
                 zIndex: 2,
             }}>
-                <SlArrowLeft size={30} />
+                <SlArrowLeft size={25} />
             </button>
 
-            <button onClick={goToNext} onPointerDown={(e) => e.stopPropagation()} className="position-absolute d-flex align-items-center justify-content-center" style={{
+            <button onClick={goToNext} onPointerDown={(e) => e.stopPropagation()} className="position-absolute d-flex align-items-center justify-content-center header-arrow-next" style={{
                 top: "50%",
-                right: "20px",
                 transform: "translateY(-50%)",
-                width: "45px",
-                height: "45px",
                 borderRadius: "50%",
                 cursor: "pointer",
                 zIndex: 2,
             }}>
-                <SlArrowRight size={30} />
+                <SlArrowRight size={25} />
             </button>
 
             <div className="position-absolute d-flex gap-2" style={{ bottom: "24px", left: "50%", transform: "translateX(-50%)", zIndex: 2 }}>
